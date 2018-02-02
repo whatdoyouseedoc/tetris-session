@@ -1,0 +1,16 @@
+body {
+	background: #202028;
+	font-size: 2em;
+	font-family: sans-serif;
+	color: #eee;
+	text-align: center;
+}
+
+.canvas {
+	border: .2em solid #eee;
+	height: 90hv;
+}
+
+.score {
+	margin-bottom: 10px;
+}
