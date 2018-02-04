@@ -9,10 +9,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div id="score" class="score"></div>
+    <div class="player" id="player_1">
+        <div class="score"></div>
+        
+        <canvas class="canvas" width="240" height="400"></canvas>
+    </div>
 
-    <canvas id="canvas" class="canvas" width="240" height="400"></canvas>
+    <div class="player" id="player_2">
+        <div class="score"></div>
+        
+        <canvas class="canvas" width="240" height="400"></canvas>
+    </div>
 
+    <script src="lib/arena.js"></script>
+    <script src="lib/player.js"></script>
+    <script src="lib/tetris.js"></script>
     <script src="tetris.js"></script>
 </body>
 </html>
