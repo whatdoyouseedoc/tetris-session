@@ -1,9 +1,14 @@
 body {
 	background: #202028;
+	display: flex;
 	font-size: 2em;
 	font-family: sans-serif;
 	color: #eee;
 	text-align: center;
+}
+
+.player {
+	flex: 1 1 auto;
 }
 
 .canvas {
