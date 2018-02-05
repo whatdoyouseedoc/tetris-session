@@ -3,6 +3,8 @@ class Player {
         this.DROP_SLOW = 1000;
         this.DROP_FAST = 50;
 
+        this.events = new Events();
+
         this.tetris = tetris;
         this.arena = tetris.arena;
         this.matrix = null;
@@ -18,19 +20,23 @@ class Player {
         this.pos.x += dir;
         if (this.arena.collide(this)) {
             this.pos.x -= dir;
+            return;
         }
+        this.events.emit('pos', this.pos);
     }
 
     drop() {
         this.pos.y++;
+        this.dropCounter = 0;
         if (this.arena.collide(this)) {
             this.pos.y--;
             this.arena.merge(this);
             this.reset();
             this.score += this.arena.sweep(this);
-            this.tetris.updateScore(this.score);
+            this.events.emit('score', this.score);
+            return;
         }
-        this.dropCounter = 0;
+        this.events.emit('pos', this.pos);
     }
 
     rotate(dir) {
@@ -46,6 +52,7 @@ class Player {
                 return;
             }
         }
+        this.events.emit('matrix', this.matrix);
     }
 
     _rotateMatrix(matrix, dir) {
@@ -76,14 +83,16 @@ class Player {
 
     reset() {
         const pcs = 'OILJSZT';
-        this.matrix = createPiece(pcs[pcs.length * Math.random() | 0]);
+        this.matrix = this.tetris.createPiece(pcs[pcs.length * Math.random() | 0]);
         this.pos.y = 0;
         this.pos.x = (this.arena.matrix[0].length / 2 | 0) - (this.matrix[0].length / 2 | 0);
     
         if (this.arena.collide(this)) {
             this.arena.clean();
             this.score = 0;
-            this.tetris.updateScore(this.score);
+            this.events.emit('score', this.score);
         }
+        this.events.emit('pos', this.pos);
+        this.events.emit('matrix', this.matrix);
     }
 }
